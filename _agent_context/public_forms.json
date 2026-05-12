@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "forms": [
+    {
+      "entity": "schlagloch_melden",
+      "app_id": "6a02bdb3bca9138b0a3e6dc4",
+      "path": "/rest/apps/6a02bdb3bca9138b0a3e6dc4/records",
+      "allowed_fields": [
+        "standort",
+        "schweregrad",
+        "beschreibung",
+        "meldedatum",
+        "melder_vorname",
+        "melder_nachname",
+        "melder_email",
+        "melder_telefon"
+      ],
+      "pow": true,
+      "pow_difficulty": 50000,
+      "title": "Schlagloch melden — Formular"
+    }
+  ]
+}
