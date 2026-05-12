@@ -441,6 +441,15 @@ export function SchlaglochMeldenDialog({ open, onClose, onSubmit, defaultValues,
                           try {
                             const fileUrl = await uploadFile(file, file.name);
                             setFields(f => ({ ...f, foto: fileUrl }));
+                            if (enablePhotoLocation && file.type.startsWith('image/')) {
+                              const meta = await extractPhotoMeta(file);
+                              if (meta?.gps) {
+                                const { latitude, longitude } = meta.gps;
+                                const geoAddr = await reverseGeocode(latitude, longitude);
+                                setFields(f => ({ ...f, standort: { lat: latitude, long: longitude, info: geoAddr } as any }));
+                                setGeoFromPhoto(true);
+                              }
+                            }
                           } catch (err) { console.error('Upload failed:', err); }
                         }}
                       />
@@ -471,6 +480,15 @@ export function SchlaglochMeldenDialog({ open, onClose, onSubmit, defaultValues,
                     try {
                       const fileUrl = await uploadFile(file, file.name);
                       setFields(f => ({ ...f, foto: fileUrl }));
+                      if (enablePhotoLocation && file.type.startsWith('image/')) {
+                        const meta = await extractPhotoMeta(file);
+                        if (meta?.gps) {
+                          const { latitude, longitude } = meta.gps;
+                          const geoAddr = await reverseGeocode(latitude, longitude);
+                          setFields(f => ({ ...f, standort: { lat: latitude, long: longitude, info: geoAddr } as any }));
+                          setGeoFromPhoto(true);
+                        }
+                      }
                     } catch (err) { console.error('Upload failed:', err); }
                   }}
                 />
